@@ -1,15 +1,16 @@
 const path = require('path');
+const { supportedLanguages } = require('./i18n');
 
 module.exports.onCreateNode = ({ node, actions }) => {
     const { createNodeField } = actions;
 
     if (node.internal.type === 'MarkdownRemark') {
-        const slug = path.basename(node.fileAbsolutePath, '.md');
+        const directoryName = path.basename(path.dirname(node.fileAbsolutePath));
 
         createNodeField({
             node,
-            name: 'slug',
-            value: slug
+            name: 'directoryName',
+            value: directoryName
         });
     }
 };
@@ -17,6 +18,7 @@ module.exports.onCreateNode = ({ node, actions }) => {
 module.exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
     const blogTemplate = path.resolve('./src/templates/blog.js');
+    const blogIndexPage = path.resolve('./src/pages/blog.js');
     const res = await graphql(`
         query {
             allMarkdownRemark {
@@ -31,10 +33,21 @@ module.exports.createPages = async ({ graphql, actions }) => {
         }
     `);
 
+    // Create index pages for all supported languages
+    Object.keys(supportedLanguages).forEach(langKey => {
+        createPage({
+            component: blogIndexPage,
+            path: langKey === 'en' ? '/blog/en/' : `/blog/${langKey}/`,
+            context: {
+                langKey
+            },
+        });
+    });
+
     res.data.allMarkdownRemark.edges.forEach((post) => {
         createPage({
             component: blogTemplate,
-            path: `/blog/${post.node.fields.slug}`,
+            path: `/blog${post.node.fields.slug}`,
             context: {
                 slug: post.node.fields.slug
             }

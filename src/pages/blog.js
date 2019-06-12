@@ -34,7 +34,7 @@ const BlogPage = () => {
                 {data.allMarkdownRemark.edges.map((post) => {
                     return (
                         <li className={blogStyles.post}>
-                            <Link to={`/blog/${post.node.fields.slug}`}>
+                            <Link to={`/blog${post.node.fields.slug}`}>
                                 <h1>{post.node.frontmatter.title}</h1>
                                 <p>{post.node.frontmatter.date}</p>
                             </Link>

@@ -29,6 +29,14 @@ module.exports = {
                 ]
             }
         },
-        'gatsby-plugin-react-helmet'
+        'gatsby-plugin-react-helmet',
+        {
+            resolve: 'gatsby-plugin-i18n',
+            options: {
+                langKeyDefault: 'en',
+                pagesPaths: [`src/posts/`],
+                useLangKeyLayout: false
+            }
+        }
     ]
 };

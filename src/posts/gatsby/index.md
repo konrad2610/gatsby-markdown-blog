@@ -3,7 +3,7 @@ title: 'Gatsby tutorial'
 date: '2019-05-08'
 ---
 
-Jedziemy z tematem (Markdown)
+Jedziemy z tematem (Markdown) ENGLISH
 
 ![MojePhoto](./grass.png)
 
