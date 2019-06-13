@@ -5,27 +5,27 @@ import Layout from '../components/layout';
 import blogStyles from '../styles/blog.module.scss';
 import Head from '../components/head';
 
-export const pageQuery = graphql`
-  query($langKey: String!) {
-    allMarkdownRemark(
-      filter: { fields: { langKey: { eq: $langKey } } }
-      sort: { fields: [frontmatter___date], order: DESC }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-            langKey
-          }
-          timeToRead
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-          }
+export const blogIndexPageQuery = graphql`
+    query($langKey: String!) {
+        allMarkdownRemark(
+            filter: { fields: { langKey: { eq: $langKey } } }
+            sort: { fields: [frontmatter___date], order: DESC }
+        ) {
+            edges {
+                node {
+                    fields {
+                        slug
+                        langKey
+                    }
+                    timeToRead
+                    frontmatter {
+                        date(formatString: "MMMM DD, YYYY")
+                        title
+                    }
+                }
+            }
         }
-      }
     }
-  }
 `;
 
 const BlogPage = (props) => {

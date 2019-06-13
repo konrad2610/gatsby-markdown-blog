@@ -17,7 +17,7 @@ module.exports.onCreateNode = ({ node, actions }) => {
 
 module.exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
-    const blogTemplate = path.resolve('./src/templates/blog-post.js');
+    const blogPostTemplate = path.resolve('./src/templates/blog-post.js');
     const blogIndexTemplate = path.resolve('./src/templates/blog-index.js');
     const res = await graphql(`
         query {
@@ -33,7 +33,6 @@ module.exports.createPages = async ({ graphql, actions }) => {
         }
     `);
 
-    // Create index pages for all supported languages
     Object.keys(supportedLanguages).forEach(langKey => {
         createPage({
             component: blogIndexTemplate,
@@ -46,7 +45,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
 
     res.data.allMarkdownRemark.edges.forEach((post) => {
         createPage({
-            component: blogTemplate,
+            component: blogPostTemplate,
             path: `/blog${post.node.fields.slug}`,
             context: {
                 slug: post.node.fields.slug

@@ -3,7 +3,7 @@ title: 'PWA - Progressive Web Apps'
 date: '2019-06-03'
 ---
 
-PWA - English version
+PWA - Progresywne Aplikacje Webowe
 
 - manifest
 - service worker

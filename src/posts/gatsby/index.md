@@ -3,12 +3,12 @@ title: 'Gatsby tutorial'
 date: '2019-05-08'
 ---
 
-Jedziemy z tematem (Markdown) ENGLISH
+Let's go!
 
 ![MojePhoto](./grass.png)
 
-## Co można?
+## What could you do?
 
-1. To
-2. i to
+1. This
+2. and that
 3. ...?
