@@ -1,37 +1,40 @@
 import React from 'react';
-import { graphql, useStaticQuery, Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
-import blogStyles from './blog.module.scss';
+import blogStyles from '../styles/blog.module.scss';
 import Head from '../components/head';
 
-const BlogPage = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            allMarkdownRemark (
-                sort: { fields: [frontmatter___date], order: DESC }
-            ) {
-                edges {
-                    node {
-                        frontmatter {
-                            title
-                            date(formatString: "MMMM DD, YYYY")
-                        }
-                        fields {
-                            slug
-                        }
-                    }
-                }
-            }
+export const pageQuery = graphql`
+  query($langKey: String!) {
+    allMarkdownRemark(
+      filter: { fields: { langKey: { eq: $langKey } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+            langKey
+          }
+          timeToRead
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+          }
         }
-    `);
+      }
+    }
+  }
+`;
 
+const BlogPage = (props) => {
     return (
         <Layout>
             <Head title="Blog"/>
             <h1>Blog Page</h1>
             <ol className={blogStyles.posts}>
-                {data.allMarkdownRemark.edges.map((post) => {
+                {props.data.allMarkdownRemark.edges.map((post) => {
                     return (
                         <li className={blogStyles.post}>
                             <Link to={`/blog${post.node.fields.slug}`}>
