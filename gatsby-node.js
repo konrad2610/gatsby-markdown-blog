@@ -1,20 +1,6 @@
 const path = require('path');
 const { supportedLanguages } = require('./i18n');
 
-module.exports.onCreateNode = ({ node, actions }) => {
-    const { createNodeField } = actions;
-
-    if (node.internal.type === 'MarkdownRemark') {
-        const directoryName = path.basename(path.dirname(node.fileAbsolutePath));
-
-        createNodeField({
-            node,
-            name: 'directoryName',
-            value: directoryName
-        });
-    }
-};
-
 module.exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
     const blogPostTemplate = path.resolve('./src/templates/blog-post.js');
