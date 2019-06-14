@@ -1,4 +1,4 @@
 exports.supportedLanguages = {
     en: 'English',
-    pl: 'Polski'
+    pl: 'polski'
 };
